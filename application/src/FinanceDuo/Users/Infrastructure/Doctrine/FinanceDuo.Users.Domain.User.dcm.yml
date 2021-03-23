@@ -1,0 +1,37 @@
+FinanceDuo\Users\Domain\User:
+  type: entity
+  table: users
+  repositoryClass: FinanceDuo\Users\Infrastructure\Persistence\UserDoctrineRepository
+  id:
+    id:
+      type: uuid
+      nullable: false
+  fields:
+    username:
+      type: username
+      nullable: false
+      column: username
+    name:
+      type: name
+      nullable: false
+      column: name
+    email:
+      type: email
+      nullable: false
+      column: email
+    password:
+      type: password
+      nullable: false
+      column: password
+    createdAt:
+      type: created_at
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: updated_at
+      nullable: true
+      column: updated_at
+  oneToMany:
+    groups:
+      targetEntity: FinanceDuo\Users\Domain\UserGroup
+      mappedBy: user

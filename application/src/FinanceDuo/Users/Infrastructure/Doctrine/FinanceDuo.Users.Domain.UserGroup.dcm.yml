@@ -1,0 +1,27 @@
+FinanceDuo\Users\Domain\UserGroup:
+  type: entity
+  table: group_user
+  id:
+    id:
+      type: uuid
+      nullable: false
+  fields:
+    percentage:
+      type: percentage
+      nullable: false
+      column: percentage
+  manyToOne:
+    user:
+      targetEntity: FinanceDuo\Users\Domain\User
+      mappedBy: users
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+      cascade: [ "persist" ,"merge", "refresh" ]
+    group:
+      targetEntity: FinanceDuo\Groups\Domain\Group
+      mappedBy: groups
+      joinColumn:
+        name: group_id
+        referencedColumnName: id
+      cascade: [ "persist" ,"merge", "refresh" ]

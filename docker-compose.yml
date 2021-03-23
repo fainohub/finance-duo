@@ -1,0 +1,53 @@
+version: "3.5"
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: ${DOCKER_APP_NAME}-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - ${DOCKER_NETWORK}
+
+  app:
+    build:
+      args:
+        user: www
+        uid: 1000
+        APP_ENV: ${APP_ENV}
+      context: ./
+      dockerfile: Dockerfile
+    image: ${DOCKER_APP_NAME}
+    container_name: ${DOCKER_APP_NAME}-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    ports:
+      - 9000:80
+    env_file:
+      - .env
+    volumes:
+      - ./application:/var/www
+    networks:
+      - ${DOCKER_NETWORK}
+
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: ${DOCKER_APP_NAME}-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./application:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    networks:
+      - ${DOCKER_NETWORK}
+
+networks:
+  financeduo:
+    driver: bridge

@@ -1,0 +1,51 @@
+FinanceDuo\Expenses\Domain\Expense:
+  type: entity
+  table: expenses
+  repositoryClass: FinanceDuo\Expenses\Infrastructure\Persistence\ExpenseDoctrineRepository
+  id:
+    id:
+      type: uuid
+      nullable: false
+  fields:
+    description:
+      type: description
+      nullable: false
+      column: description
+    amount:
+      type: amount
+      nullable: false
+      column: amount
+    paidAt:
+      type: paid_at
+      nullable: false
+      column: paid_at
+    createdAt:
+      type: created_at
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: updated_at
+      nullable: true
+      column: updated_at
+  manyToOne:
+    user:
+      targetEntity: FinanceDuo\Users\Domain\User
+      mappedBy: users
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+      cascade: [ "persist" ,"merge", "refresh" ]
+    group:
+      targetEntity: FinanceDuo\Groups\Domain\Group
+      mappedBy: groups
+      joinColumn:
+        name: group_id
+        referencedColumnName: id
+      cascade: [ "persist" ,"merge", "refresh" ]
+    category:
+      targetEntity: FinanceDuo\Expenses\Domain\Category
+      mappedBy: expense_categories
+      joinColumn:
+        name: category_id
+        referencedColumnName: id
+      cascade: [ "persist" ,"merge", "refresh" ]

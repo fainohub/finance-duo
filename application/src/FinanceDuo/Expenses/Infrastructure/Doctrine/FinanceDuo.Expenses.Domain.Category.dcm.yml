@@ -1,0 +1,21 @@
+FinanceDuo\Expenses\Domain\Category:
+  type: entity
+  table: expense_categories
+  repositoryClass: FinanceDuo\Expenses\Infrastructure\Persistence\CategoryDoctrineRepository
+  id:
+    id:
+      type: uuid
+      nullable: false
+  fields:
+    name:
+      type: name
+      nullable: false
+      column: name
+    createdAt:
+      type: created_at
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: updated_at
+      nullable: true
+      column: updated_at

@@ -1,0 +1,25 @@
+FinanceDuo\Groups\Domain\Group:
+  type: entity
+  table: groups
+  repositoryClass: FinanceDuo\Groups\Infrastructure\Persistence\GroupDoctrineRepository
+  id:
+    id:
+      type: uuid
+      nullable: false
+  fields:
+    name:
+      type: name
+      nullable: false
+      column: name
+    description:
+      type: description
+      nullable: false
+      column: description
+    createdAt:
+      type: created_at
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: updated_at
+      nullable: true
+      column: updated_at
